@@ -17,6 +17,7 @@ set relativenumber
 set nowrap
 set ruler
 set cursorline
+set hidden
 set colorcolumn=80
 let mapleader=" "
 
@@ -34,8 +35,13 @@ set background=dark
 
 "
 noremap <leader>w :w<Cr>
-noremap <leader>q :bd<Cr>
+noremap <leader>q :bd!<Cr>
 inoremap jj <Esc>
+
+" Terminal
+" tnoremap <Esc> <C-\><C-n>
+nnoremap <C-j> :terminal<CR>
+autocmd TermOpen * startinsert
 
 " File Explorer 
 nnoremap <leader>n :NERDTreeFocus<CR>
