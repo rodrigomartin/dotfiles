@@ -32,9 +32,10 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
-" Save|quit
+"
 noremap <leader>w :w<Cr>
 noremap <leader>q :bd<Cr>
+inoremap jj <Esc>
 
 " File Explorer 
 nnoremap <leader>n :NERDTreeFocus<CR>
