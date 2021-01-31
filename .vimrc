@@ -1,6 +1,10 @@
 " Tips
 " :help {something}
 " set {something}?
+"
+" set off highlighting in underscore
+" https://stackoverflow.com/questions/19137601/turn-off-highlighting-a-certain-pattern-in-vim
+" :hi link markdownError Normal
 
 syntax on
 set path+=**
@@ -22,9 +26,10 @@ Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-autocmd vimenter * ++nested colorscheme gruvbox
+colorscheme gruvbox
 set background=dark
 
 " Save|quit
