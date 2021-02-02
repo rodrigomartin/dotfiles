@@ -39,7 +39,7 @@ noremap <leader>q :bd!<Cr>
 inoremap jj <Esc>
 
 " Terminal
-" tnoremap <Esc> <C-\><C-n>
+tnoremap <C-{> <C-\><C-n>
 nnoremap <C-j> :terminal<CR>
 autocmd TermOpen * startinsert
 
