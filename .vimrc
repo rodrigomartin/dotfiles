@@ -1,11 +1,3 @@
-" Tips
-" :help {something}
-" set {something}?
-"
-" set off highlighting in underscore
-" https://stackoverflow.com/questions/19137601/turn-off-highlighting-a-certain-pattern-in-vim
-" :hi link markdownError Normal
-
 syntax on
 set path+=**
 set tabstop=4 softtabstop=4
@@ -19,35 +11,35 @@ set ruler
 set cursorline
 set hidden
 set colorcolumn=80
-let mapleader=" "
+set splitbelow splitright
 
-" Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 colorscheme gruvbox
 set background=dark
 
-"
-noremap <leader>w :w<Cr>
-noremap <leader>q :bd!<Cr>
 inoremap jj <Esc>
+tnoremap <C-[> <C-\><C-N>
 
-" Terminal
-tnoremap <C-{> <C-\><C-n>
-nnoremap <C-j> :terminal<CR>
-autocmd TermOpen * startinsert
+let mapleader=" "
+noremap <leader>w :w<Cr>
+noremap <leader>q :bd<Cr>
+noremap <leader>j :new term://zsh<Cr>
 
-" File Explorer 
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
+" nav
 nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
 
 " Ctrl+P 
 nnoremap <C-p> :FZF<CR>
