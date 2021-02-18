@@ -16,6 +16,8 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if our EDITOR is set to vi
 # bindkey -e
 bindkey -v
+bindkey -s jj '\e'
+bindkey jj vi-cmd-mode
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -43,7 +45,7 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -57,11 +59,18 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Alias
-alias ll='lsd -lh --group-dirs=first'
-alias la='lsd -a --group-dirs=first'
 alias l='lsd --group-dirs=first'
-alias lla='lsd -lha --group-dirs=first'
-alias ls='lsd --group-dirs=first'
-alias vim='nvim'
+alias ls='l'
+alias ll='l -l'
+alias la='l -a'
+alias lla='l -la'
+alias ..='goBackTo'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Go back in your steps (directories) 
+function goBackTo {
+    local dirname=${1:-'..'}
+    dirname=$(pwd | grep -o ".*${dirname}/")
+    cd $dirname
+}
