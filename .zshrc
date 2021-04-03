@@ -18,6 +18,7 @@ setopt histignorealldups sharehistory
 bindkey -v
 bindkey -s jj '\e'
 bindkey jj vi-cmd-mode
+bindkey "^R" history-incremental-search-backward
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -65,6 +66,8 @@ alias ll='l -l'
 alias la='l -a'
 alias lla='l -la'
 alias ..='goBackTo'
+alias toggleTouchpad="toggleTouchpad.sh"
+alias tt="toggleTouchpad"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
