@@ -12,6 +12,13 @@ set cursorline
 set hidden
 set colorcolumn=80
 set splitbelow splitright
+set redrawtime=10000
+set foldmethod=indent
+set wildmenu
+set wildignore+=*/system/*,*/node_modules/*,*/vendor/*
+
+" override folmethod in 'FileType'
+" autocmd FileType vim setlocal foldmethod=manual
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -19,7 +26,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'

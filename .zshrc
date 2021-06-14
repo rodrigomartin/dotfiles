@@ -6,18 +6,19 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Set up the prompt
-
 autoload -Uz promptinit
 promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
-# bindkey -e
+# Use vim keybindings
 bindkey -v
 bindkey -s jj '\e'
 bindkey jj vi-cmd-mode
+
+# Reverse search
+bindkey '^R' history-incremental-search-backward
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -45,10 +46,10 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /home/rodrigo/powerlevel10k/powerlevel10k.zsh-theme
 
 export EDITOR="/usr/bin/vim"
 export TMPDIR="/tmp"
@@ -73,4 +74,8 @@ function goBackTo {
     local dirname=${1:-'..'}
     dirname=$(pwd | grep -o ".*${dirname}/")
     cd $dirname
+}
+
+function dbrestore {
+    #code 
 }
