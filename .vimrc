@@ -1,7 +1,7 @@
 syntax on
 set path+=**
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType javascript,json setlocal tabstop=2 softtabstop=2 shiftwidth=2
 set expandtab
 set smartindent
 set number
@@ -17,16 +17,7 @@ set foldmethod=indent
 set wildmenu
 set wildignore+=*/system/*,*/node_modules/*,*/vendor/*
 
-" override folmethod in 'FileType'
-" autocmd FileType vim setlocal foldmethod=manual
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 call plug#begin('~/.vim/plugged')
-" Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
@@ -34,8 +25,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
+"theme
 colorscheme gruvbox
 set background=dark
+highlight Normal ctermbg=none
 
 inoremap jj <Esc>
 tnoremap <C-[> <C-\><C-N>
