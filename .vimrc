@@ -1,7 +1,9 @@
 syntax on
+autocmd BufNewFile,BufRead *.env set filetype=ignored
 set path+=**
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=4 softtabstop=4 shiftwidth=4
+autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType php setlocal suffixesadd=.php autoindent
 set expandtab
 set smartindent
 set number
@@ -17,16 +19,15 @@ set foldmethod=indent
 set wildmenu
 set wildignore+=*/system/*,*/node_modules/*,*/vendor/*
 
-" override folmethod in 'FileType'
-" autocmd FileType vim setlocal foldmethod=manual
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged')
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
