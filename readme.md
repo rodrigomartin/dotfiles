@@ -29,6 +29,14 @@ ln -s -f dotfiles/.tmux.conf.local
 sudo chsh -s $(which zsh) $USER
 ```
 
+# Configurar neovim
+Crear archivo `~/.config/nvim/init.vim` con el siguiente contenido:
+
+```
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
+```
+
 # TODO:
-- Corregir para neovim
 - Instalador
