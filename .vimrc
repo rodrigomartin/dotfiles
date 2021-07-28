@@ -28,15 +28,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'vim-airline/vim-airline'
+"themes
+Plug 'morhetz/gruvbox'
 call plug#end()
 
+"set theme
 colorscheme gruvbox
 set background=dark
+highlight Normal ctermbg=none
 
 inoremap jj <Esc>
 tnoremap <C-[> <C-\><C-N>
