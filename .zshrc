@@ -75,7 +75,3 @@ function goBackTo {
     dirname=$(pwd | grep -o ".*${dirname}/")
     cd $dirname
 }
-
-function dbrestore {
-    #code 
-}
