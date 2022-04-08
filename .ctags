@@ -1,9 +1,14 @@
 --recurse=yes
 --exclude=.git
+--exclude=BUILD
+--exclude=.svn
+--exclude=*.js
 --exclude=vendor/*
 --exclude=node_modules/*
 --exclude=logs/*
 --exclude=assets/*
+--exclude=db/*
+--exclude=log/*
 --exclude=\*.min.\*
 --exclude=\*.swp
 --exclude=\*.bak
