@@ -46,6 +46,7 @@ tnoremap <C-[> <C-\><C-N>
 
 let mapleader=" "
 noremap <leader>w :w<Cr>
+noremap <leader>q :call ExecuteQuery()<Cr>
 
 " nav
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -75,3 +76,71 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
+
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
+
+" Querys
+function! ExecuteQuery() abort
+  execute "normal! ?;\<cr>"
+  let l:ini=getcurpos()
+
+  execute "normal! /;\<cr>" 
+  let l:end=getcurpos()
+
+  if l:ini[1] >= l:end[1]
+    let l:ini = [bufname(), 1, 1, 0, 1]
+  else
+    let l:ini[1] = l:ini[1]+1
+  endif
+
+  let l:startpos = l:ini[1]
+  let l:endpos = l:end[1]
+  let l:queryfile = tempname()
+  let l:querylines = getline(l:startpos, l:endpos)
+  call writefile(l:querylines, l:queryfile)
+
+  let l:docker = "on"
+  let l:containername = "mysql"
+  let l:dbname = "pleno"
+  let l:user = "root"
+  let l:command = ""
+  if l:docker == "on"
+    let l:command = "docker exec -i "
+    let l:command = l:command.l:containername." mysql -u".l:user." ".l:dbname
+  endif
+  let l:queryresult = system(l:command." < ".l:queryfile." | sed 's/\\t/;/g'")
+  let l:resultslines = split(l:queryresult, '\n')
+  execute "new | setlocal nobuflisted"
+  if empty(l:resultslines) 
+    call appendbufline(bufname(), "$", "[ERROR]")
+    call appendbufline(bufname(), "$", "ini: ".join(l:ini))
+    call appendbufline(bufname(), "$", "end: ".join(l:end))
+    call appendbufline(bufname(), "$", "queryfile: ".l:queryfile)
+    call appendbufline(bufname(), "$", "command: ".l:command)
+    call appendbufline(bufname(), "$", "[Query]:")
+    for line in l:querylines
+      call appendbufline(bufname(), "$", line)
+    endfor
+  elseif l:resultslines[0] == "ERROR"
+    call appendbufline(bufname(), "$", l:queryresult)
+    call appendbufline(bufname(), "$", "[Query]:")
+    for line in l:querylines
+      call appendbufline(bufname(), "$", line)
+    endfor
+    call appendbufline(bufname(), "$", "ini: ".join(l:ini))
+    call appendbufline(bufname(), "$", "end: ".join(l:end))
+  else
+    for line in l:resultslines
+      call appendbufline(bufname(), "$", line)
+    endfor
+    execute ":%!column -s ';' -t"
+  endif
+  call delete(l:queryfile)
+endfunction
