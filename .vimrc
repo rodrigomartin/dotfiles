@@ -18,6 +18,7 @@ set redrawtime=10000
 set foldmethod=indent
 set wildmenu
 set wildignore+=*/system/*,*/node_modules/*,*/vendor/*
+set mouse=a
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -58,6 +59,9 @@ nnoremap <C-h> <C-w><C-h>
 " Ctrl+P 
 nnoremap <C-p> :FZF<CR>
 
+" Custom commands
+command! VimSQL tabnew VimSQL|setlocal bt=nofile bh=delete noswapfile
+
 " Buffers navigation 
 function! s:buflist()
   redir => ls
@@ -88,18 +92,13 @@ endif
 
 " Execute queries in mysql
 function! ExecuteQuery() abort
+  " Query lines
   execute "normal! ?;\<cr>" | let l:ini = getpos('.')
   execute "normal! /;\<cr>" | let l:end = getpos('.')
-
-  if l:ini[1] >= l:end[1]
-    let l:ini = [bufname(), 1, 1, 0, 1]
-  else
-    let l:ini[1] = l:ini[1]+1
-  endif
+  let l:startpos = l:ini[1] >= l:end[1] ? 1 : l:ini[1]+1
+  let l:endpos   = l:end[1]
 
   " Query
-  let l:startpos   = l:ini[1]
-  let l:endpos     = l:end[1]
   let l:queryfile  = tempname()
   let l:querylines = getline(l:startpos, l:endpos)
   call writefile(l:querylines, l:queryfile)
@@ -109,8 +108,11 @@ function! ExecuteQuery() abort
   let l:dbname       = "pleno"
   let l:user         = "root"
   let l:connection   = l:container != "" ? "docker exec -i ".l:container : ""
-  let l:command      = l:connection." mysql -u".l:user." ".l:dbname
-  let l:queryresult  = system(l:command." < ".l:queryfile." | sed 's/\\t/;/g'")
+  let l:connection   = l:connection." mysql -u".l:user." ".l:dbname
+
+  " Execute query
+  let l:command      = l:connection." < ".l:queryfile." | sed 's/\\t/;/g'"
+  let l:queryresult  = system(l:command)
   let l:resultslines = split(l:queryresult, '\n')
 
   " logs
@@ -119,11 +121,9 @@ function! ExecuteQuery() abort
   let l:loglines = add(l:loglines, "end: ".join(l:end))
   let l:loglines = add(l:loglines, "command: ".l:command)
   let l:loglines = add(l:loglines, "[Query]: ")
+  let l:loglines = extend(l:loglines, l:querylines)
 
-  execute ":new|setlocal bufhidden=wipe buftype=nofile noswapfile nobuflisted"
-  for line in l:querylines
-    let l:loglines = add(l:loglines, line)
-  endfor
+  execute ":new Query results|setlocal bh=wipe bt=nofile noswapfile nobuflisted"
   if empty(l:resultslines) 
     call append(0, l:loglines)
   elseif l:resultslines[0] == "ERROR"
