@@ -86,13 +86,10 @@ if executable(s:clip)
     augroup END
 endif
 
-" Querys
+" Execute queries in mysql
 function! ExecuteQuery() abort
-  execute "normal! ?;\<cr>"
-  let l:ini=getcurpos()
-
-  execute "normal! /;\<cr>" 
-  let l:end=getcurpos()
+  execute "normal! ?;\<cr>" | let l:ini = getpos('.')
+  execute "normal! /;\<cr>" | let l:end = getpos('.')
 
   if l:ini[1] >= l:end[1]
     let l:ini = [bufname(), 1, 1, 0, 1]
@@ -100,46 +97,40 @@ function! ExecuteQuery() abort
     let l:ini[1] = l:ini[1]+1
   endif
 
-  let l:startpos = l:ini[1]
-  let l:endpos = l:end[1]
-  let l:queryfile = tempname()
+  " Query
+  let l:startpos   = l:ini[1]
+  let l:endpos     = l:end[1]
+  let l:queryfile  = tempname()
   let l:querylines = getline(l:startpos, l:endpos)
   call writefile(l:querylines, l:queryfile)
 
-  let l:docker = "on"
-  let l:containername = "mysql"
-  let l:dbname = "pleno"
-  let l:user = "root"
-  let l:command = ""
-  if l:docker == "on"
-    let l:command = "docker exec -i "
-    let l:command = l:command.l:containername." mysql -u".l:user." ".l:dbname
-  endif
-  let l:queryresult = system(l:command." < ".l:queryfile." | sed 's/\\t/;/g'")
+  " connection
+  let l:container    = "mysql"
+  let l:dbname       = "pleno"
+  let l:user         = "root"
+  let l:connection   = l:container != "" ? "docker exec -i ".l:container : ""
+  let l:command      = l:connection." mysql -u".l:user." ".l:dbname
+  let l:queryresult  = system(l:command." < ".l:queryfile." | sed 's/\\t/;/g'")
   let l:resultslines = split(l:queryresult, '\n')
-  execute "new | setlocal nobuflisted"
+
+  " logs
+  let l:loglines = []
+  let l:loglines = add(l:loglines, "ini: ".join(l:ini))
+  let l:loglines = add(l:loglines, "end: ".join(l:end))
+  let l:loglines = add(l:loglines, "command: ".l:command)
+  let l:loglines = add(l:loglines, "[Query]: ")
+
+  execute ":new|setlocal bufhidden=wipe buftype=nofile noswapfile nobuflisted"
+  for line in l:querylines
+    let l:loglines = add(l:loglines, line)
+  endfor
   if empty(l:resultslines) 
-    call appendbufline(bufname(), "$", "[ERROR]")
-    call appendbufline(bufname(), "$", "ini: ".join(l:ini))
-    call appendbufline(bufname(), "$", "end: ".join(l:end))
-    call appendbufline(bufname(), "$", "queryfile: ".l:queryfile)
-    call appendbufline(bufname(), "$", "command: ".l:command)
-    call appendbufline(bufname(), "$", "[Query]:")
-    for line in l:querylines
-      call appendbufline(bufname(), "$", line)
-    endfor
+    call append(0, l:loglines)
   elseif l:resultslines[0] == "ERROR"
-    call appendbufline(bufname(), "$", l:queryresult)
-    call appendbufline(bufname(), "$", "[Query]:")
-    for line in l:querylines
-      call appendbufline(bufname(), "$", line)
-    endfor
-    call appendbufline(bufname(), "$", "ini: ".join(l:ini))
-    call appendbufline(bufname(), "$", "end: ".join(l:end))
+    call append(0, l:queryresult)
+    call append(line("$"), l:loglines)
   else
-    for line in l:resultslines
-      call appendbufline(bufname(), "$", line)
-    endfor
+    call append(0, l:resultslines)
     execute ":%!column -s ';' -t"
   endif
   call delete(l:queryfile)
