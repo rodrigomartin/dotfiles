@@ -42,10 +42,9 @@ colorscheme gruvbox
 set background=dark
 highlight Normal ctermbg=none
 
+let mapleader=" "
 inoremap jj <Esc>
 tnoremap <C-[> <C-\><C-N>
-
-let mapleader=" "
 noremap <leader>w :w<Cr>
 noremap <leader>q :call ExecuteQuery()<Cr>
 
@@ -111,27 +110,31 @@ function! ExecuteQuery() abort
   let l:connection   = l:connection." mysql -u".l:user." ".l:dbname
 
   " Execute query
+  echom "Executing query..."
   let l:command      = l:connection." < ".l:queryfile." | sed 's/\\t/;/g'"
   let l:queryresult  = system(l:command)
   let l:resultslines = split(l:queryresult, '\n')
+  call delete(l:queryfile)
 
   " logs
   let l:loglines = []
   let l:loglines = add(l:loglines, "ini: ".join(l:ini))
   let l:loglines = add(l:loglines, "end: ".join(l:end))
   let l:loglines = add(l:loglines, "command: ".l:command)
+  let l:loglines = add(l:loglines, "queryresult: ".l:queryresult)
   let l:loglines = add(l:loglines, "[Query]: ")
   let l:loglines = extend(l:loglines, l:querylines)
 
-  execute ":new Query results|setlocal bh=wipe bt=nofile noswapfile nobuflisted"
+  execute "new Query results|setlocal bh=wipe bt=nofile noswapfile nobl"
   if empty(l:resultslines) 
-    call append(0, l:loglines)
+    let l:line = l:queryresult != '' ? l:queryresult : 'no results'
+    call append(0, l:line)
   elseif l:resultslines[0] == "ERROR"
     call append(0, l:queryresult)
     call append(line("$"), l:loglines)
   else
     call append(0, l:resultslines)
-    execute ":%!column -s ';' -t"
+    silent execute ":%!column -s ';' -t"
   endif
-  call delete(l:queryfile)
+  call feedkeys(':', 'nx')
 endfunction
