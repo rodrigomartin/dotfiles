@@ -26,6 +26,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged')
+Plug '~/dev/vimsql'
 Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -45,8 +46,7 @@ highlight Normal ctermbg=none
 let mapleader=" "
 inoremap jj <Esc>
 tnoremap <C-[> <C-\><C-N>
-noremap <leader>w :w<Cr>
-noremap <leader>q :call ExecuteQuery()<Cr>
+noremap <leader>qq :call ExecuteQuery()<Cr>
 
 " nav
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -59,7 +59,7 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-p> :FZF<CR>
 
 " Custom commands
-command! VimSQL tabnew VimSQL|setlocal bt=nofile bh=delete noswapfile
+command! So source ~/.vimrc
 
 " Buffers navigation 
 function! s:buflist()
@@ -88,53 +88,3 @@ if executable(s:clip)
         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
     augroup END
 endif
-
-" Execute queries in mysql
-function! ExecuteQuery() abort
-  " Query lines
-  execute "normal! ?;\<cr>" | let l:ini = getpos('.')
-  execute "normal! /;\<cr>" | let l:end = getpos('.')
-  let l:startpos = l:ini[1] >= l:end[1] ? 1 : l:ini[1]+1
-  let l:endpos   = l:end[1]
-
-  " Query
-  let l:queryfile  = tempname()
-  let l:querylines = getline(l:startpos, l:endpos)
-  call writefile(l:querylines, l:queryfile)
-
-  " connection
-  let l:container    = "mysql"
-  let l:dbname       = "pleno"
-  let l:user         = "root"
-  let l:connection   = l:container != "" ? "docker exec -i ".l:container : ""
-  let l:connection   = l:connection." mysql -u".l:user." ".l:dbname
-
-  " Execute query
-  echom "Executing query..."
-  let l:command      = l:connection." < ".l:queryfile." | sed 's/\\t/;/g'"
-  let l:queryresult  = system(l:command)
-  let l:resultslines = split(l:queryresult, '\n')
-  call delete(l:queryfile)
-
-  " logs
-  let l:loglines = []
-  let l:loglines = add(l:loglines, "ini: ".join(l:ini))
-  let l:loglines = add(l:loglines, "end: ".join(l:end))
-  let l:loglines = add(l:loglines, "command: ".l:command)
-  let l:loglines = add(l:loglines, "queryresult: ".l:queryresult)
-  let l:loglines = add(l:loglines, "[Query]: ")
-  let l:loglines = extend(l:loglines, l:querylines)
-
-  execute "new Query results|setlocal bh=wipe bt=nofile noswapfile nobl"
-  if empty(l:resultslines) 
-    let l:line = l:queryresult != '' ? l:queryresult : 'no results'
-    call append(0, l:line)
-  elseif l:resultslines[0] == "ERROR"
-    call append(0, l:queryresult)
-    call append(line("$"), l:loglines)
-  else
-    call append(0, l:resultslines)
-    silent execute ":%!column -s ';' -t"
-  endif
-  call feedkeys(':', 'nx')
-endfunction
