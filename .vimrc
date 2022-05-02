@@ -19,6 +19,7 @@ set foldmethod=indent
 set wildmenu
 set wildignore+=*/system/*,*/node_modules/*,*/vendor/*
 set mouse=a
+set clipboard=unnamed
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -26,7 +27,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged')
-Plug '~/dev/vimsql'
+Plug 'rodrigomartin/vimsql', {'branch': 'dev'}
 Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -46,7 +47,7 @@ highlight Normal ctermbg=none
 let mapleader=" "
 inoremap jj <Esc>
 tnoremap <C-[> <C-\><C-N>
-noremap <leader>qq :call ExecuteQuery()<Cr>
+noremap <leader>qq :call vimsql#executeQuery()<Cr>
 
 " nav
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -79,12 +80,3 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
-
-" WSL yank support
-let s:clip = '/mnt/c/Windows/System32/clip.exe'
-if executable(s:clip)
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-    augroup END
-endif
