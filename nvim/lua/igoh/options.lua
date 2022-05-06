@@ -1,8 +1,3 @@
--- nvim-tree
-require'nvim-tree'.setup {
-    actions = { open_file = { quit_on_open = true } }
-}
-
 -- GENERAL
 vim.cmd "syntax on"
 vim.opt.path:append("**")
@@ -31,10 +26,25 @@ vim.cmd "autocmd BufNewFile,BufRead *.env set filetype=ignored"
 vim.cmd "autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 vim.cmd "autocmd FileType php setlocal suffixesadd=.php autoindent"
 
--- THEMES
---vscode
+-- THEME
+-- vscode:
 vim.g.vscode_style = "dark"
 vim.g.vscode_transparent = 1
 vim.g.vscode_italic_comment = 1
 vim.g.vscode_disable_nvimtree_bg = true
 vim.cmd([[colorscheme vscode]])
+
+-- STATUS LINE
+require('lualine').setup()
+
+
+-- WSL yank support
+vim.cmd [[
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+]]
