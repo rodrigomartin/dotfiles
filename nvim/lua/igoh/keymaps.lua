@@ -21,7 +21,7 @@ keymap("n", "H", ":bnext<cr>", opts)
 keymap("n", "L", ":bprevious<cr>", opts)
 
 -- Explorer
-keymap("n", "<leader>e", ":Lex 15<cr>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<cr>", opts)
