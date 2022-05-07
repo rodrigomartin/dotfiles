@@ -1,6 +1,6 @@
 local server_installer = require('nvim-lsp-installer')
 local lsp_config = require('lspconfig')
-local servers = {'intelephense', 'sumneko_lua'}
+local servers = {'intelephense', 'sumneko_lua', 'jedi_language_server'}
 local opts = { noremap=true, silent=true }
 server_installer.setup { ensure_installed = servers }
 
@@ -28,6 +28,9 @@ lsp_config.intelephense.setup {
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     end,
 }
+
+-- PYTHON
+lsp_config.jedi_language_server.setup {}
 
 -- LUA
 lsp_config.sumneko_lua.setup {
