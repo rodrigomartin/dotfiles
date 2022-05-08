@@ -1,5 +1,5 @@
-require "igoh.plugins"
-require "igoh.nvim-tree-setup"
+require "igoh.plugins.plugins"
+require "igoh.plugins.nvimtree"
+require "igoh.plugins.lsp"
 require "igoh.options"
 require "igoh.keymaps"
-require "igoh.lsp"

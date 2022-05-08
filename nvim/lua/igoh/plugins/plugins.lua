@@ -50,11 +50,14 @@ packer.startup(function(use)
   -- LSP
   use {
       'williamboman/nvim-lsp-installer',
-      'neovim/nvim-lspconfig' 
+      'neovim/nvim-lspconfig'
   }
 
   -- Themes
   use 'Mofiqul/vscode.nvim'
+
+  -- My Plugins
+  use '~/dev/vimsql'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

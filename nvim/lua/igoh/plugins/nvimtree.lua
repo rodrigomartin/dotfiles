@@ -9,8 +9,4 @@ require('nvim-tree').setup {
     git = {
         ignore = true,
     },
-    view = {
-        number = true,
-        relativenumber = true,
-    },
 }
