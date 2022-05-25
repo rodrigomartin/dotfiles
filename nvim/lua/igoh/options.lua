@@ -20,6 +20,7 @@ vim.opt.foldmethod="indent"
 vim.opt.wildmenu=true
 vim.opt.wildignore:append("*/system/*,*/node_modules/*,*/vendor/*")
 vim.opt.mouse="a"
+vim.opt.swapfile=false
 
 -- AUTOCMDS
 vim.cmd "autocmd BufNewFile,BufRead *.env set filetype=ignored"
@@ -35,7 +36,13 @@ vim.g.vscode_disable_nvimtree_bg = true
 vim.cmd([[colorscheme vscode]])
 
 -- STATUS LINE
-require('lualine').setup()
+require('lualine').setup{
+    sections = {
+        lualine_c = {
+            { 'filename', path=1 }
+        },
+    }
+}
 
 
 -- WSL yank support

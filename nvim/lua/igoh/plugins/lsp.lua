@@ -1,11 +1,17 @@
 local server_installer = require('nvim-lsp-installer')
-local lsp_config = require('lspconfig')
-local servers = {'intelephense', 'sumneko_lua', 'jedi_language_server'}
-local opts = { noremap=true, silent=true }
+local lsp_config       = require('lspconfig')
+local opts             = { noremap=true, silent=true }
+local servers          = {
+    'intelephense',
+    'sumneko_lua',
+    'jedi_language_server',
+    'tsserver',
+    'yamlls',
+    'vimls'
+}
 server_installer.setup { ensure_installed = servers }
 
-local on_attach = function(server, bufnr)
-    print(server, 'attached')
+local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -26,13 +32,20 @@ local on_attach = function(server, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
--- PHP
-lsp_config.intelephense.setup { on_attach = on_attach }
+for _, server in ipairs(servers) do
+    lsp_config[server].setup { on_attach = on_attach }
+end
 
--- PYTHON
-lsp_config.jedi_language_server.setup { on_attach = on_attach }
+-- TSSERVER Settings
+lsp_config.tsserver.setup {
+    init_options = {
+        preferences = {
+            disableSuggestions = true,
+        }
+    }
+}
 
--- LUA
+-- LUA Settings
 lsp_config.sumneko_lua.setup {
     -- Avoid warings on editing vim files
     settings = {
@@ -44,4 +57,14 @@ lsp_config.sumneko_lua.setup {
     }
 }
 
-
+-- Yamlls Setting
+lsp_config.yamlls.setup {
+    settings = {
+        yaml = {
+            customTags = {
+                "!Ref", --AWS SAM Template
+                "!Sub", --AWS SAM Template
+            }
+        }
+    }
+}

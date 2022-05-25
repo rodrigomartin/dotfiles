@@ -6,6 +6,9 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Utils
+keymap("n", "<leader>w", ":w<cr>", opts)
+
 -- Insert mode maps
 keymap("i", "jj", "<ESC>", opts)
 
@@ -14,10 +17,6 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
-
--- Buffers nav
-keymap("n", "H", ":bnext<cr>", opts)
-keymap("n", "L", ":bprevious<cr>", opts)
 
 -- Explorer
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)

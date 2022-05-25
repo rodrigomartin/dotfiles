@@ -29,17 +29,28 @@ if not status_ok then
   return
 end
 
+-- PLUGINS HERE
 packer.startup(function(use)
-  -- Plugin manager (This)
+  -- Plugin manager
   use 'wbthomason/packer.nvim'
 
   -- File explorer
+  use {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+          {'nvim-lua/plenary.nvim'},
+          {'BurntSushi/ripgrep'},
+          {'sharkdp/fd'},
+          {'nvim-treesitter/nvim-treesitter'},
+      }
+  }
   use {
       'kyazdani42/nvim-tree.lua',
       requires = {
           'kyazdani42/nvim-web-devicons'
       }
   }
+
 
   -- Status line
   use 'nvim-lualine/lualine.nvim'

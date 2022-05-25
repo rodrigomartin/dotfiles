@@ -34,7 +34,7 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-#eval "$(dircolors -b)"
+eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -60,11 +60,19 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Alias
-alias l='lsd --group-dirs=first'
-alias ls='l'
-alias ll='l -l'
-alias la='l -a'
-alias lla='l -la'
+if type batcat >/dev/null; then
+    alias cat=batcat
+fi
+if type nvim >/dev/null; then
+    alias v=nvim
+fi
+if type lsd >/dev/null; then
+    alias l='lsd --group-dirs=first'
+    alias ls='l'
+    alias ll='l -l'
+    alias la='l -a'
+    alias lla='l -la'
+fi
 alias ..='goBackTo'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
