@@ -64,6 +64,7 @@ lsp_config.yamlls.setup {
             customTags = {
                 "!Ref", --AWS SAM Template
                 "!Sub", --AWS SAM Template
+                "!GetAtt", --AWS SAM Template
             }
         }
     }

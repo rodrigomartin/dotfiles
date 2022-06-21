@@ -44,7 +44,6 @@ require('lualine').setup{
     }
 }
 
-
 -- WSL yank support
 vim.cmd [[
     let s:clip = '/mnt/c/Windows/System32/clip.exe'

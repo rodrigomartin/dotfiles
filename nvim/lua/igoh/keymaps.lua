@@ -6,9 +6,6 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Utils
-keymap("n", "<leader>w", ":w<cr>", opts)
-
 -- Insert mode maps
 keymap("i", "jj", "<ESC>", opts)
 
