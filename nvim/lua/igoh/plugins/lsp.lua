@@ -62,9 +62,16 @@ lsp_config.yamlls.setup {
     settings = {
         yaml = {
             customTags = {
-                "!Ref", --AWS SAM Template
-                "!Sub", --AWS SAM Template
-                "!GetAtt", --AWS SAM Template
+                "!Equals sequence",
+                "!FindInMap sequence",
+                "!GetAtt",
+                "!GetAZs",
+                "!ImportValue",
+                "!Join sequence",
+                "!Ref",
+                "!Select sequence",
+                "!Split sequence",
+                "!Sub",
             }
         }
     }

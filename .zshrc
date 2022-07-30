@@ -74,6 +74,7 @@ if type lsd >/dev/null; then
     alias lla='l -la'
 fi
 alias ..='goBackTo'
+alias docker-down='docker stop $(docker ps -q) && docker rm $(docker ps -aq) && docker compose down'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

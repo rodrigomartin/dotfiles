@@ -34,6 +34,24 @@ packer.startup(function(use)
   -- Plugin manager
   use 'wbthomason/packer.nvim'
 
+  -- Status line
+  use 'nvim-lualine/lualine.nvim'
+
+  -- GIT
+  use 'tpope/vim-fugitive'
+
+  -- LSP
+  use {
+      'williamboman/nvim-lsp-installer',
+      'neovim/nvim-lspconfig'
+  }
+
+  -- Treesitter
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+  }
+
   -- File explorer
   use {
       'nvim-telescope/telescope.nvim',
@@ -51,21 +69,9 @@ packer.startup(function(use)
       }
   }
 
-
-  -- Status line
-  use 'nvim-lualine/lualine.nvim'
-
-  -- GIT
-  use 'tpope/vim-fugitive'
-
-  -- LSP
-  use {
-      'williamboman/nvim-lsp-installer',
-      'neovim/nvim-lspconfig'
-  }
-
   -- Themes
   use 'Mofiqul/vscode.nvim'
+  use 'marko-cerovac/material.nvim'
 
   -- My Plugins
   use '~/dev/vimsql'

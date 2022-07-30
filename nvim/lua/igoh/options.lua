@@ -25,8 +25,10 @@ vim.opt.swapfile=false
 -- AUTOCMDS
 vim.cmd "autocmd BufNewFile,BufRead *.env set filetype=ignored"
 vim.cmd "autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2"
+vim.cmd "autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 vim.cmd "autocmd FileType php setlocal suffixesadd=.php autoindent"
 
+--
 -- THEME
 -- vscode:
 vim.g.vscode_style = "dark"
@@ -34,6 +36,10 @@ vim.g.vscode_transparent = 1
 vim.g.vscode_italic_comment = 1
 vim.g.vscode_disable_nvimtree_bg = true
 vim.cmd([[colorscheme vscode]])
+
+-- material
+--vim.cmd([[colorscheme material]])
+--
 
 -- STATUS LINE
 require('lualine').setup{

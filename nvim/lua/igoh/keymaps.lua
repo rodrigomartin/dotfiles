@@ -17,12 +17,10 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Explorer
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+keymap("n", "<leader><cr>", ":Telescope buffers<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<cr>", opts)
 keymap("n", "<C-Down>", ":resize -2<cr>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<cr>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<cr>", opts)
-
--- Personal plugins
-keymap("n", "<leader><cr>", ":call vimsql#executeQuery()<cr>", opts)
+keymap("n", "<C-Left>", ":vertical resize +2<cr>", opts)
+keymap("n", "<C-Right>", ":vertical resize -2<cr>", opts)
