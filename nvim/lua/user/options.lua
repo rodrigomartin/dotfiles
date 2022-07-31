@@ -23,9 +23,9 @@ opt.splitright=true
 opt.foldmethod="indent"
 opt.mouse="a"
 opt.swapfile=false
+opt.colorcolumn="80"
 
 --
--- opt.colorcolumn="80"
 -- opt.redrawtime=10000
 -- opt.wildmenu=true
 -- opt.wildignore:append("*/system/*,*/node_modules/*,*/vendor/*")

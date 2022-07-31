@@ -9,7 +9,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local function on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -33,10 +33,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
--- This is the default in Nvim 0.7+
-local lsp_flags = { debounce_text_changes = 150, }
-
-require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
+local serverlist = require('plugins.lsp.serverlist')
+for _, server in ipairs(serverlist) do
+    local server_settings_path = 'plugins.lsp.servers-settings.'..server
+    local ok, _ = pcall(require, server_settings_path)
+    local setup = {}
+    if ok then
+        setup = require(server_settings_path)
+    end
+    setup['on_attach'] = on_attach
+    print(setup)
+    require('lspconfig')[server].setup (setup)
+end
