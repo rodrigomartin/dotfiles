@@ -30,12 +30,11 @@ for _, server in ipairs(servers) do
     local server_name  = tostring(server.name)
     local server_setup = 'plugins.lsp.setups.'..server_name
 
-    local setup = {}
-    local ok, _ = pcall(require, server_setup)
-    if ok then
-        setup = require(server_setup)
+    local loaded, setup = pcall(require, server_setup)
+    if loaded then
+        setup['on_attach'] = on_attach
+    else
+        setup = { on_attach = on_attach }
     end
-    setup['on_attach'] = on_attach
-
     require('lspconfig')[server_name].setup (setup)
 end
