@@ -4,6 +4,8 @@ require('plugins.lsp.lspconfig')
 require('plugins.themes.vscode')
 require('plugins.nvim-tree')
 require('plugins.treesitter')
+require('plugins.lualine')
+require('plugins.telescope')
 require('user.options')
 require('user.keymaps')
 
