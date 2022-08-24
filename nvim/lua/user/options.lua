@@ -5,8 +5,8 @@ cmd "syntax on"
 cmd "autocmd BufNewFile,BufRead *.env set filetype=ignored"
 cmd "autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 cmd "autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2"
+cmd "autocmd FileType typescript setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 cmd "autocmd FileType php setlocal suffixesadd=.php autoindent"
--- cmd "set termguicolors"
 
 opt.tabstop=4
 opt.softtabstop=4

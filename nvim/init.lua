@@ -6,6 +6,7 @@ require('plugins.nvim-tree')
 require('plugins.treesitter')
 require('plugins.lualine')
 require('plugins.telescope')
+require('plugins.cmp')
 require('user.options')
 require('user.keymaps')
 
