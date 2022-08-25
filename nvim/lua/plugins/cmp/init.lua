@@ -17,9 +17,10 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     formatting = {
-        fields = {'abbr', 'menu' },
+        fields = {'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
             vim_item.menu = ({
+                nvim_lsp = '[LSP]',
                 luasnip = '[Snippet]',
                 buffer = '[Buffer]',
                 path = '[Path]',
