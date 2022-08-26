@@ -5,7 +5,8 @@ local servers       = {
     'jedi_language_server',
     'tsserver',
     'yamlls',
-    'vimls'
+    'vimls',
+    'dockerls',
 }
 
 lsp_installer.setup({ ensure_installed = servers })
