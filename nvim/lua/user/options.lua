@@ -28,6 +28,7 @@ opt.foldmethod = "indent"
 opt.mouse = "a"
 opt.swapfile = false
 opt.colorcolumn = "80"
+opt.scrolloff = 10
 
 --
 -- opt.redrawtime=10000

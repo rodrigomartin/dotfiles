@@ -2,16 +2,25 @@ return {
     settings = {
         yaml = {
             customTags = {
+                "!Base64 scalar",
+                "!Cidr scalar",
+                "!And sequence",
                 "!Equals sequence",
+                "!If sequence",
+                "!Not sequence",
+                "!Or sequence",
+                "!Condition scalar",
                 "!FindInMap sequence",
-                "!GetAtt",
-                "!GetAZs",
-                "!ImportValue",
+                "!GetAtt scalar",
+                "!GetAtt sequence",
+                "!GetAZs scalar",
+                "!ImportValue scalar",
                 "!Join sequence",
-                "!Ref",
                 "!Select sequence",
                 "!Split sequence",
-                "!Sub",
+                "!Sub sequence",
+                "!Transform mapping",
+                "!Ref scalar",
             }
         }
     }
