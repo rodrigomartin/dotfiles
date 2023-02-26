@@ -25,7 +25,7 @@ local function on_attach(_, bufnr)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = require('nvim-lsp-installer').get_installed_servers()
 for _, server in ipairs(servers) do
     local server_name  = tostring(server.name)

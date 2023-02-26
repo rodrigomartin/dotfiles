@@ -1,7 +1,7 @@
 local lsp_installer = require('nvim-lsp-installer')
 local servers       = {
     'phpactor',
-    'sumneko_lua',
+    'lua_ls',
     'jedi_language_server',
     'tsserver',
     'yamlls',
