@@ -5,12 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# load fzf
-if type fzf >/dev/null; then
-    source /usr/share/doc/fzf/examples/key-bindings.zsh
-    source /usr/share/doc/fzf/examples/completion.zsh
-fi
-
 # Use vim keybindings
 bindkey -v
 bindkey -s jj '\e'
@@ -28,6 +22,12 @@ source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 export EDITOR="/usr/bin/vim"
 export TMPDIR="/tmp"
 
+# load fzf
+if type fzf >/dev/null; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+fi
+
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -35,6 +35,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Aliases
 if type batcat >/dev/null; then
+    alias catn=/usr/bin/cat
     alias cat=batcat
 fi
 if type nvim >/dev/null; then

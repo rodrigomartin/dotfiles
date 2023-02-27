@@ -18,7 +18,7 @@ return {
                 "!Join sequence",
                 "!Select sequence",
                 "!Split sequence",
-                "!Sub sequence",
+                "!Sub scalar",
                 "!Transform mapping",
                 "!Ref scalar",
             }
