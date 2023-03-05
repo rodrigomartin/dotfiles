@@ -98,9 +98,9 @@ tmux_conf_theme=enabled
 
 # my own theme
 tmux_conf_theme_colour_1="colour236" # Barra principal
-tmux_conf_theme_colour_2="colour8" # ventana inactiva
-tmux_conf_theme_colour_3="colour8" # ?
-tmux_conf_theme_colour_4="colour109" # ventana activa
+tmux_conf_theme_colour_2="colour8" # indicador panel inactivo
+tmux_conf_theme_colour_3="colour244" # texto 3ra ventana
+tmux_conf_theme_colour_4="colour109" # indicador panel activo
 tmux_conf_theme_colour_5="colour109" # fondo modo para copiar
 tmux_conf_theme_colour_6="colour233" # texto nombre session
 tmux_conf_theme_colour_7="colour244" # texto uptime
@@ -385,7 +385,8 @@ set -gu prefix2
 unbind C-a
 unbind C-b
 set -g prefix C-a
-bind C-a send-prefix
+bind-key C-a last-window
+bind-key a send-prefix
 
 # reload tmux config
 bind r source-file ~/.tmux.conf
@@ -395,7 +396,6 @@ bind r source-file ~/.tmux.conf
 
 # move status line to top
 #set -g status-position top
-
 
 # -- tpm -----------------------------------------------------------------------
 
