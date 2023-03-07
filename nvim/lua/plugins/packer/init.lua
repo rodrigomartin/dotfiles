@@ -59,6 +59,7 @@ return require('packer').startup(function(use)
 
     -- themes
     use 'Mofiqul/vscode.nvim'
+    use 'Yazeed1s/oh-lucy.nvim'
 
     if packer_bootstrap then
         require('packer').sync()

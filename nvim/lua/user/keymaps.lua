@@ -1,7 +1,7 @@
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-keymap('i', 'jj', '<esc>', opts)
+keymap('i', '¿¿', '<esc>', opts)
 keymap('n', '<space>e', ':NvimTreeToggle<cr>', opts)
 keymap('n', '<space>t', ':Telescope<cr>', opts)
 
