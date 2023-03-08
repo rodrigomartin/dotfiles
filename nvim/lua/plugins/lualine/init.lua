@@ -46,6 +46,7 @@ local custom = {
 
 require('lualine').setup {
     options = {
+        --theme = custom,
         theme = 'auto',
         globalstatus = true,
         disabled_filetypes = { 'NvimTree' },

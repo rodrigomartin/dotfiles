@@ -26,11 +26,9 @@ local function on_attach(_, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = require('nvim-lsp-installer').get_installed_servers()
+local servers = require('mason-lspconfig').get_installed_servers()
 for _, server in ipairs(servers) do
-    local server_name  = tostring(server.name)
-    local server_setup = 'plugins.lsp.setups.' .. server_name
-
+    local server_setup = 'plugins.lsp.setups.' .. server
     local loaded, setup = pcall(require, server_setup)
     if loaded then
         setup['on_attach'] = on_attach
@@ -38,5 +36,6 @@ for _, server in ipairs(servers) do
         setup = { on_attach = on_attach }
     end
     setup['capabilities'] = capabilities
-    require('lspconfig')[server_name].setup(setup)
+
+    require('lspconfig')[server].setup(setup)
 end

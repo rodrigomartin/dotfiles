@@ -1,2 +1,2 @@
-require('plugins.lsp.lsp-installer')
+require('plugins.lsp.mason')
 require('plugins.lsp.lspconfig')

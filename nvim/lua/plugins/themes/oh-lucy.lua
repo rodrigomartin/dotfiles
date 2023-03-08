@@ -1,2 +1,2 @@
 local cmd = vim.cmd
-cmd[[colorscheme oh-lucy]]
+cmd [[colorscheme oh-lucy]]
