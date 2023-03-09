@@ -6,8 +6,8 @@ fi
 
 # Use vim keybindings
 bindkey -v
-bindkey -s ¿¿ '\e'
-bindkey ¿¿ vi-cmd-mode
+bindkey -s ññ '\e'
+bindkey ññ vi-cmd-mode
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
