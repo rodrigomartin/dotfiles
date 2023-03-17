@@ -21,6 +21,9 @@ return require('packer').startup(function(use)
         'saadparwaiz1/cmp_luasnip',
     }
 
+    -- copilot
+    use 'github/copilot.vim'
+
     -- git
     use 'tpope/vim-fugitive'
 
