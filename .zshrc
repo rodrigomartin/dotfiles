@@ -63,6 +63,9 @@ function list_dirs {
 
 complete -F list_dirs goBackTo
 
+# aws profile switcher
+alias awsp='export AWS_PROFILE=$(sed -n "s/\[profile \(.*\)\]/\1/gp" ~/.aws/config | fzf)'
+
 # load ssh-keys
 eval $(ssh-agent -s) > /dev/null 2>&1
 ssh-add > /dev/null 2>&1
