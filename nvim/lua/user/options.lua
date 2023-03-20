@@ -1,5 +1,6 @@
 local opt = vim.opt
 local cmd = vim.cmd
+local g = vim.g
 
 cmd "syntax on"
 cmd "autocmd BufNewFile,BufRead *.env set filetype=ignored"
@@ -29,6 +30,10 @@ opt.mouse = "a"
 opt.swapfile = false
 opt.colorcolumn = "80"
 opt.scrolloff = 10
+opt.termguicolors = true
+
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 
 --
 -- opt.redrawtime=10000
