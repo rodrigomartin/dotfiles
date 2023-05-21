@@ -24,6 +24,8 @@ return require('packer').startup(function(use)
     -- copilot
     use 'github/copilot.vim'
 
+    use 'moll/vim-bbye' -- delete buffers without closing vim
+
     -- git
     use 'tpope/vim-fugitive'
 
@@ -33,6 +35,13 @@ return require('packer').startup(function(use)
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
+    }
+
+    -- bufferline
+    use {
+        'akinsho/bufferline.nvim',
+        tag = "*",
+        requires = 'nvim-tree/nvim-web-devicons'
     }
 
     -- Status line

@@ -6,3 +6,4 @@ require('plugins.treesitter')       --syntax higlight
 require('plugins.lualine')          --statusline
 require('plugins.telescope')        --telescope
 require('plugins.cmp')              --completions
+require('plugins.bufferline')       --buffers as tabs

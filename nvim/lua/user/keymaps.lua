@@ -12,3 +12,8 @@ keymap('n', '<space><cr>', ':Telescope buffers<cr>', opts)
 -- Quickfix list
 keymap('n', '<space>n', ':cnext<cr>', opts)
 keymap('n', '<space>p', ':cprev<cr>', opts)
+
+-- Bufferline navigation
+keymap('n', 'L', ':BufferLineCycleNext<cr>', opts)
+keymap('n', 'H', ':BufferLineCyclePrev<cr>', opts)
+keymap('n', 'X', ':Bdelete! %<cr>', opts)
