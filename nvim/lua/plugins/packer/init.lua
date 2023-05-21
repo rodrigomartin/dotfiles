@@ -2,7 +2,7 @@ local fn = vim.fn
 local cmd = vim.cmd
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    PACKER_BOOTSTRAP = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
         install_path })
     cmd [[packadd packer.nvim]]
 end
@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
 
     -- lsp
+    use 'b0o/schemastore.nvim'
     use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -66,7 +67,7 @@ return require('packer').startup(function(use)
     use 'Mofiqul/vscode.nvim'
     use 'Yazeed1s/oh-lucy.nvim'
 
-    if packer_bootstrap then
+    if PACKER_BOOTSTRAP then
         require('packer').sync()
     end
 end)

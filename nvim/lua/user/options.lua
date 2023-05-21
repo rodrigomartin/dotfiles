@@ -31,6 +31,7 @@ opt.swapfile = false
 opt.colorcolumn = "80"
 opt.scrolloff = 10
 opt.termguicolors = true
+opt.guifont = "*"
 
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1

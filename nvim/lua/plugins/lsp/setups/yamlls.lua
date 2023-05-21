@@ -1,6 +1,7 @@
 return {
     settings = {
         yaml = {
+            schemas = require('schemastore').yaml.schemas(),
             customTags = {
                 "!Base64 scalar",
                 "!Cidr scalar",
@@ -18,10 +19,16 @@ return {
                 "!Join sequence",
                 "!Select sequence",
                 "!Split sequence",
-                "!Sub scalar",
+                "!Sub sequence",
                 "!Transform mapping",
                 "!Ref scalar",
             }
         }
     }
 }
+
+--[[
+            schemas = {
+                ["https://raw.githubusercontent.com/lalcebo/json-schema/master/serverless/reference.json"] = "serverless.yml",
+            },
+--]]
