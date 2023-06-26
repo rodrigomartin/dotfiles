@@ -23,6 +23,11 @@ require('nvim-tree').setup {
             resize_window = true,
         },
     },
+    update_focused_file = {
+        enable = true,
+        update_root = false,
+        ignore_list = {},
+    },
     git = {
         ignore = false,
     },
