@@ -33,9 +33,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases
-if type batcat >/dev/null; then
+if type bat >/dev/null; then
     alias catn=/usr/bin/cat
-    alias cat=batcat
+    alias cat=bat
 fi
 if type nvim >/dev/null; then
     alias v=nvim
