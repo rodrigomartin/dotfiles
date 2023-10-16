@@ -19,3 +19,7 @@ keymap('n', '<space>p', ':cprev<cr>', opts)
 keymap('n', 'L', ':BufferLineCycleNext<cr>', opts)
 keymap('n', 'H', ':BufferLineCyclePrev<cr>', opts)
 keymap('n', '<c-x>', ':Bdelete! %<cr>', opts)
+
+-- copy and paste to system clipboard
+keymap('v', '<c-C>', '"+y', opts)
+-- keymap('n', '<c-V>', '"+p', opts)

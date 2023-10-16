@@ -30,5 +30,11 @@ require('nvim-tree').setup {
     },
     git = {
         ignore = false,
+        timeout = 500,
+    },
+    view = {
+        width = 45,
+        side = 'left',
+        auto_resize = true,
     },
 }

@@ -1,2 +1,2 @@
 require('plugins.themes.vscode')
---require('plugins.themes.oh-lucy')
+-- require('plugins.themes.oh-lucy')

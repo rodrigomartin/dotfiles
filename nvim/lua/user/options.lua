@@ -32,7 +32,7 @@ opt.colorcolumn = "80"
 opt.scrolloff = 10
 opt.termguicolors = true
 opt.guifont = "*"
-opt.clipboard="unnamedplus"
+opt.clipboard="unnamed"
 
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
@@ -41,14 +41,3 @@ g.loaded_netrwPlugin = 1
 -- opt.redrawtime=10000
 -- opt.wildmenu=true
 -- opt.wildignore:append("*/system/*,*/node_modules/*,*/vendor/*")
-
--- WSL yank support
-cmd [[
-    let s:clip = '/mnt/c/Windows/System32/clip.exe'
-    if executable(s:clip)
-        augroup WSLYank
-            autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-        augroup END
-    endif
-]]
