@@ -48,6 +48,10 @@ if type lsd >/dev/null; then
     alias lla='l -la'
 fi
 alias ..='goBackTo'
+alias tp='teleport'
+alias atp='add_teleport'
+alias ltp='list_teleport'
+alias dtp='del_teleport'
 
 # Go back in your steps (directories) 
 function goBackTo {
@@ -55,6 +59,34 @@ function goBackTo {
     dirname=$(pwd | grep -o ".*${dirname}/")
     cd $dirname
 }
+
+# Navegate to favorite directories
+tplist=$HOME/.teleport
+function teleport {
+    local directories=($(cat $tplist))
+    selection=$(echo ${directories[@]} | tr ' ' '\n' | fzf)
+    if [ -n "$selection" ]; then
+        cd $selection
+    fi
+}
+function add_teleport {
+    directories+=($(pwd))
+    echo ${directories[@]} > $tplist
+}
+function list_teleport {
+    local directories=($(cat $tplist))
+    echo ${directories[@]}
+}
+function del_teleport {
+    local directories=($(cat $tplist))
+    selection=$(echo ${directories[@]} | tr ' ' '\n' | fzf)
+    if [ -n "$selection" ]; then
+        directories=(${directories[@]/$selection})
+        echo ${directories[@]} > $tplist
+    fi
+    directories=($(cat $tplist))
+}
+
 
 # completions
 function list_dirs {
