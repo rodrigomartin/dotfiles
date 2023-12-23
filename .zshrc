@@ -70,12 +70,13 @@ function teleport {
     fi
 }
 function add_teleport {
+    local directories=($(cat $tplist))
     directories+=($(pwd))
     echo ${directories[@]} > $tplist
 }
 function list_teleport {
     local directories=($(cat $tplist))
-    echo ${directories[@]}
+    echo ${directories[@]} | tr " " "\n"
 }
 function del_teleport {
     local directories=($(cat $tplist))
@@ -86,14 +87,18 @@ function del_teleport {
     fi
     directories=($(cat $tplist))
 }
-
+# end of teleport
 
 # completions
 function list_dirs {
     echo $(pwd) | awk -F/ '{ for(i=1; i<=NF; i++) print $i }'
 }
+function list_teleport_dirs {
+    echo $(list_teleport) | awk -F/ '{ for(i=1; i<=NF; i++) print $i }'
+}
 
 complete -F list_dirs goBackTo
+complete -F list_teleport_dirs teleport
 
 # aws 
 # profile switcher

@@ -12,6 +12,9 @@ cmd "autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 cmd "autocmd FileType typescript setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 cmd "autocmd FileType typescriptreact setlocal tabstop=2 softtabstop=2 shiftwidth=2"
 
+-- foldmethod=manual
+cmd "autocmd FileType markdown setlocal foldmethod=manual"
+
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
