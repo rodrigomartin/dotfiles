@@ -1,6 +1,6 @@
 require('vscode').setup({
     style = 'dark',
-    transparent = false,
+    transparent = true,
     italic_comments = true,
     disable_nvimtree_bg = false,
 })

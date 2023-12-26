@@ -18,13 +18,13 @@ HISTFILE=~/.zsh_history
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
-export EDITOR="/usr/bin/vim"
+export EDITOR="/usr/local/bin/nvim"
 export TMPDIR="/tmp"
 
 # load fzf
 if type fzf >/dev/null; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
 fi
 
 # NVM
@@ -33,13 +33,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Aliases
+if type batcat >/dev/null; then
+    alias catn=/usr/bin/cat
+    alias cat=batcat
+fi
+
 if type bat >/dev/null; then
     alias catn=/usr/bin/cat
     alias cat=bat
 fi
+
 if type nvim >/dev/null; then
     alias v=nvim
 fi
+
 if type lsd >/dev/null; then
     alias l='lsd --group-dirs=first'
     alias ls='l'
@@ -47,6 +54,7 @@ if type lsd >/dev/null; then
     alias la='l -a'
     alias lla='l -la'
 fi
+
 alias ..='goBackTo'
 alias tp='teleport'
 alias atp='add_teleport'
